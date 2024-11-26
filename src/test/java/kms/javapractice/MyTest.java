@@ -656,6 +656,20 @@ public class MyTest {
                 .collect(Collectors.toList());
     }
 
+    @Test
+    void removeDuplicatesTest() {
+
+        assertThat(removeDuplicates(List.of(1, 2, 2, 3, 4, 4, 5))).isEqualTo(List.of(1, 2, 3, 4, 5));
+        assertThat(removeDuplicates(List.of(1, 1, 1, 1))).isEqualTo(List.of(1));
+        assertThat(removeDuplicates(List.of())).isEqualTo(List.of());
+    }
+    List<Integer> removeDuplicates(List<Integer> inputList) {
+        // HashSet을 사용하여 중복을 제거
+        Set<Integer> uniqueSet = new HashSet<>(inputList);
+        // 중복이 제거된 Set을 ArrayList로 변환
+        return new ArrayList<>(uniqueSet);
+    }
+
 
 }
 
