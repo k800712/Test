@@ -670,8 +670,87 @@ public class MyTest {
         return new ArrayList<>(uniqueSet);
     }
 
+    @Test
+    void calculateRanksTest() {
+
+        assertThat(calculateRanks(List.of(80, 90, 70, 85))).isEqualTo(List.of(3, 1, 4, 2));
+        assertThat(calculateRanks(List.of(100, 100, 80))).isEqualTo(List.of(1, 1, 3));
+        assertThat(calculateRanks(List.of())).isEqualTo(List.of());
+    }
+
+    List<Integer> calculateRanks(List<Integer> scores) {
+        List<Integer> ranks = new ArrayList<>();
+
+        for (int i = 0; i < scores.size(); i++) {
+            int rank = 1; // 순위는 1부터 시작합니다.
+            for (int j = 0; j < scores.size(); j++) {
+                if (scores.get(j) > scores.get(i)) {
+                    rank++;
+                }
+            }
+            ranks.add(rank);
+        }
+        return ranks;
 
 }
+
+    @Test
+    void calculateTotalPriceTest() {
+
+        assertThat(calculateTotalPrice(List.of(1000, 2000, 3000))).isEqualTo(6000);
+        assertThat(calculateTotalPrice(List.of(5000))).isEqualTo(5000);
+        assertThat(calculateTotalPrice(List.of())).isEqualTo(0);
+
+    }
+    int calculateTotalPrice(List<Integer> prices) {
+        int total = 0;
+        for (int price : prices) {
+            total += price;
+        }
+        return total;
+    }
+
+    @Test
+    void applyDiscountTest() {
+
+        assertThat(applyDiscount(List.of(1000, 2000, 3000), 10)).isEqualTo(List.of(900, 1800, 2700));
+        assertThat(applyDiscount(List.of(5000), 50)).isEqualTo(List.of(2500));
+        assertThat(applyDiscount(List.of(), 20)).isEqualTo(List.of());
+    }
+    List<Integer> applyDiscount(List<Integer> prices, int discountRate) {
+        List<Integer> discountedPrices = new ArrayList<>();
+
+        for (int price : prices) {
+            double discountedPrice = price * (100 - discountRate) / 100.0;
+            int roundedPrice = (int) Math.round(discountedPrice);
+            discountedPrices.add(roundedPrice);
+        }
+
+        return discountedPrices;
+    }
+
+    @Test
+    void filterExpensiveItemsTest() {
+
+        assertThat(filterExpensiveItems(List.of(1000, 2000, 3000, 4000), 2500)).isEqualTo(List.of(3000, 4000));
+        assertThat(filterExpensiveItems(List.of(1000, 1500, 2000), 3000)).isEqualTo(List.of());
+        assertThat(filterExpensiveItems(List.of(), 2000)).isEqualTo(List.of());
+    }
+
+    List<Integer> filterExpensiveItems(List<Integer> prices, int threshold) {
+        List<Integer> expensiveItems = new ArrayList<>();
+
+        for (int price : prices) {
+            if (price >= threshold) {
+                expensiveItems.add(price);
+            }
+        }
+
+        return expensiveItems;
+    }
+
+
+
 
 
 
